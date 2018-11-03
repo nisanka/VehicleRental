@@ -1,0 +1,57 @@
+﻿@model VehicleRentalUI.Models.Customer
+
+@{
+    ViewBag.Title = "Customer Details";
+}
+
+<h3>Customer Details</h3>
+
+<div>
+    <h4>@Model.Id</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>  
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
