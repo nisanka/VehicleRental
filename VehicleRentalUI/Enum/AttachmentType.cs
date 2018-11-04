@@ -10,6 +10,7 @@ namespace VehicleRentalUI.Enum
         None = 0,
         Customer = 1,
         Vehicle = 2,
-        Reservation = 3
+        Reservation = 3,
+        Brand = 4
     }
 }

@@ -1,4 +1,4 @@
-﻿@model VehicleRentalUI.Models.Customer
+﻿@model VehicleRentalUI.Models.Vehicle
 
 @{
     ViewBag.Title = "Details";
@@ -7,47 +7,55 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Customer</h4>
+    <h4>Vehicle</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Rate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Rate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.RegisteredYear)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Address)
+            @Html.DisplayFor(model => model.RegisteredYear)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber1)
+            @Html.DisplayNameFor(model => model.EngineCapacity)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PhoneNumber1)
+            @Html.DisplayFor(model => model.EngineCapacity)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber2)
+            @Html.DisplayNameFor(model => model.Model)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PhoneNumber2)
+            @Html.DisplayFor(model => model.Model)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DOB)
+            @Html.DisplayNameFor(model => model.Color)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DOB)
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
         </dd>
 
         <dt>
@@ -64,14 +72,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.IsActive)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BlackListed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BlackListed)
         </dd>
 
         <dt>
@@ -96,14 +96,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.LastRentedDatetime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Remarks)
         </dd>
 
     </dl>

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using VehicleRentalUI.Context;
 using VehicleRentalUI.Models;
+using VehicleRentalUI.Helpers;
 
 namespace VehicleRentalUI.Controllers
 {
@@ -48,10 +49,15 @@ namespace VehicleRentalUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Address,PhoneNumber1,PhoneNumber2,DOB,ObjectType,IsActive,CreatedDateTime,UpdatedDateTime,LastRentedDatetime")] Customer customer)
+        //public async Task<ActionResult> Create([Bind(Include = "Id,Name,Address,PhoneNumber1,PhoneNumber2,DOB,ObjectType,IsActive,BlackListed,CreatedDateTime,UpdatedDateTime,LastRentedDatetime,Remarks")] Customer customer)
+        public async Task<ActionResult> Create(Customer customer, HttpPostedFileBase file, List<HttpPostedFileBase> files)
+
         {
             if (ModelState.IsValid)
             {
+                BeforeSave(customer);
+                SaveAttachment(customer, file);
+                SaveAttachments(customer, files);
                 db.Customers.Add(customer);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -80,7 +86,7 @@ namespace VehicleRentalUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Address,PhoneNumber1,PhoneNumber2,DOB,ObjectType,IsActive,CreatedDateTime,UpdatedDateTime,LastRentedDatetime")] Customer customer)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Address,PhoneNumber1,PhoneNumber2,DOB,ObjectType,IsActive,BlackListed,CreatedDateTime,UpdatedDateTime,LastRentedDatetime,Remarks")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -112,6 +118,7 @@ namespace VehicleRentalUI.Controllers
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
             Customer customer = await db.Customers.FindAsync(id);
+            db.Attachments.RemoveRange(customer.Attachments);
             db.Customers.Remove(customer);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -124,6 +131,34 @@ namespace VehicleRentalUI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void BeforeSave(Customer customer)
+        {
+            customer.Id = customer.Id.ToUpper();
+            if (!customer.CreatedDateTime.HasValue)
+            {                
+                customer.IsActive = true;
+                customer.CreatedDateTime = DateTime.Now;
+            }
+            else
+            {
+                customer.UpdatedDateTime = DateTime.Now;
+            }
+        }
+
+        AttachmentHelper attachmentHelper = new AttachmentHelper();
+
+        private void SaveAttachment(Customer customer, HttpPostedFileBase file)
+        {
+            var savedAttachment = attachmentHelper.SaveAttachment(file, customer.Id, customer.ObjectType);
+            customer.PictureId = savedAttachment.FileName;
+        }
+
+        private void SaveAttachments(Customer customer, List<HttpPostedFileBase> files)
+        {
+            var savedAttachments = attachmentHelper.SaveAttachments(files.ToArray(), customer.ObjectType, customer.Id);
+            customer.Attachments = savedAttachments;
         }
     }
 }

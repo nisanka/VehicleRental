@@ -17,6 +17,7 @@ namespace VehicleRentalUI.Context
             : base("name=VehicleRentalContext")
         {
         }
+      
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
@@ -29,7 +30,7 @@ namespace VehicleRentalUI.Context
         public DbSet<ProvinceCategory> ProvinceCategories { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
-        public DbSet<Attachment> VehicleImages { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
     }
 
     //public class MyEntity
